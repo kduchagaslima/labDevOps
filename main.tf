@@ -4,36 +4,43 @@ provider "google" {
   region      = "us-central1"
   zone        = "us-central1-c"
 }
-resource "google_compute_instance_template" "vm_instance"{
+resource "google_compute_instance_template" "default"{
   name = "teste-terraform"
-  machine_type = "n1-standard-1"
-  metadata_startup_script = "yum update && yum install -y ansible"
-  
-  network_interface{
-    network = "${google_compute_network.vpc_network.self_link}"
-    access_config {
-      nat_ip = "${google_compute_address.static.address}"
-    }     
+  description = "Template utilizado para POC do Terraform com o GCP"
+  metadata_startup_script = "${file("~/ansibleTerraform/initial-script.sh")}"
+  labels = {
+    "environment" = "lab"
   }
+
+  machine_type = "n1-standard-1"
+  can_ip_forward = false  
+  scheduling {
+    automatic_restart = true
+    on_host_maintenance = "MIGRATE"
+  }
+// Create a new boot disk from ma image
   disk {
     source_image = "centos-8-v20200714"
     auto_delete = true
     boot = true
   }  
-resource "google_compute_address" "static" {
-  name = "ipv4-address"
-}
-resource "google_compute_network" "vpc_network" {
-  name = "vpc-network"
-}
+
+  network_interface {
+    network = "default"
+    access_config {
+      // Ephemeral IP
+    }    
+  }  
+}  
 resource "google_compute_instance_group_manager" "teste-terraform" {
   name = "laboratorio"
   base_instance_name = "lab-terraform"
   zone = "us-central1-c"
-  target_size = 3
+  target_size = 8
   version {
-    instance_template = "${google_compute_instance_template.vm_instance.self_link}"
-  }   
+    instance_template = "${google_compute_instance_template.default.self_link}"
+  }
+     
 }
 # Cria o Firewall para a VM
 resource "google_compute_firewall" "webfirewall" {
@@ -44,5 +51,4 @@ resource "google_compute_firewall" "webfirewall" {
     protocol = "tcp"
     ports = [22]
   }
-}
 }
