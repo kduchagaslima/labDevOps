@@ -1,0 +1,8 @@
+- name: Ajustando Bash
+  copy:
+    src: files/.bashrc
+    dest: "{{ item }}"
+    mode: 0644
+  with_items:
+   - "/home/celima/"
+   - "/root/"

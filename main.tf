@@ -7,7 +7,7 @@ provider "google" {
 resource "google_compute_instance_template" "default"{
   name = "teste-terraform"
   description = "Template utilizado para POC do Terraform com o GCP"
-  metadata_startup_script = "${file("/home/celima/ansibleTerraform/startup.sh")}"
+  metadata_startup_script = "${file("/home/celima/labDevOps/startup.sh")}"
   labels = {
     "environment" = "lab"
   }
@@ -30,7 +30,11 @@ resource "google_compute_instance_template" "default"{
     access_config {
       // Ephemeral IP
     }    
-  }  
+  }
+// Adding a ssh Key
+  metadata = {
+    sshKeys = join("",["celima:",file("/home/celima/.ssh/id_rsa.pub")])
+    }
 }  
 resource "google_compute_instance_group_manager" "teste-terraform" {
   name = "laboratorio"

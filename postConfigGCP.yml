@@ -1,0 +1,6 @@
+---
+- name: Post Config GCP instances
+  hosts: gcpTerraform
+  become: true
+  tasks:
+  - include: tasks/ajustaBash.yml
