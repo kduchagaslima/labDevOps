@@ -1,0 +1,11 @@
+---
+- name: Ajustando regras no IPTABLES
+  hosts: webservergcp
+  become: true
+  tasks:
+    - name: Adjust firewall rules
+      firewalld:
+        port: 8080/tcp
+        permanent: true
+        immediate: yes
+        state: enabled

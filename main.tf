@@ -7,7 +7,7 @@ provider "google" {
 resource "google_compute_instance_template" "default"{
   name = "teste-terraform"
   description = "Template utilizado para POC do Terraform com o GCP"
-  metadata_startup_script = "${file("/home/celima/labDevOps/startup.sh")}"
+  metadata_startup_script = "${file("/home/celima/ansibleTerraform/startup.sh")}"
   labels = {
     "environment" = "lab"
   }
@@ -40,19 +40,19 @@ resource "google_compute_instance_group_manager" "teste-terraform" {
   name = "laboratorio"
   base_instance_name = "lab-terraform"
   zone = "us-central1-c"
-  target_size = 3
+  target_size = 10
   version {
     instance_template = "${google_compute_instance_template.default.self_link}"
   }
      
 }
-# Cria o Firewall para a VM
+# Cria regras de Firewall para a VM criada
 resource "google_compute_firewall" "webfirewall" {
   name = "rule-default"
   network = "default"
 
   allow {
     protocol = "tcp"
-    ports = [22,80]
+    ports = [22,8080]
   }
 }
