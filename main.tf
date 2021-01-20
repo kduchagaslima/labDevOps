@@ -46,7 +46,7 @@ resource "google_compute_instance_group_manager" "teste-terraform" {
   }
      
 }
-# Cria o Firewall para a VM
+# Cria regra de Firewall para a VM
 resource "google_compute_firewall" "webfirewall" {
   name = "rule-default"
   network = "default"

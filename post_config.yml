@@ -15,3 +15,7 @@
         name: "{{package}}"
         state: started
         enabled: yes
+
+    - name: Restart servers
+      reboot:
+        reboot_timeout: 120
