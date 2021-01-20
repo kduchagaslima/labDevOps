@@ -2,9 +2,16 @@
 - name: Post configuration CentOS8 on GCP
   hosts: all
   become: true
-
+  vars:
+    package: cockpit
   tasks:
     - name: Instalando pacotes adicionais
       dnf:
-        name: cockpit
+        name: "{{package}}"
         state: latest
+
+    - name: Habilitando serviços
+      ansible.builtin.service:
+        name: "{{package}}"
+        state: started
+        enabled: yes
