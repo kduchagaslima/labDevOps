@@ -5,7 +5,6 @@
 
   tasks:
     - name: Instalando pacotes adicionais
-      yum:
+      dnf:
         name: cockpit
         state: latest
-        started: true
