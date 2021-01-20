@@ -1,0 +1,11 @@
+---
+- name: Post configuration CentOS8 on GCP
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Instalando pacotes adicionais
+      yum:
+        name: cockpit
+        state: latest
+        started: true

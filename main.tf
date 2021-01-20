@@ -1,13 +1,13 @@
 provider "google" {
   credentials = "${file("/home/celima/.credentials/gcp-terraform-credential.json")}"
-  project     = "terraform-project-285517"
+  project     = "balmy-flash-273619"
   region      = "us-central1"
   zone        = "us-central1-c"
 }
 resource "google_compute_instance_template" "default"{
   name = "teste-terraform"
   description = "Template utilizado para POC do Terraform com o GCP"
-  metadata_startup_script = "${file("/home/celima/ansibleTerraform/startup.sh")}"
+  metadata_startup_script = "${file("/home/celima/playbooks/labDevOps/startup.sh")}"
   labels = {
     "environment" = "lab"
   }
@@ -18,7 +18,7 @@ resource "google_compute_instance_template" "default"{
     automatic_restart = true
     on_host_maintenance = "MIGRATE"
   }
-// Create a new boot disk from ma image
+// Create a new boot disk from a image
   disk {
     source_image = "centos-8-v20200714"
     auto_delete = true
@@ -30,13 +30,17 @@ resource "google_compute_instance_template" "default"{
     access_config {
       // Ephemeral IP
     }    
+  }
+
+  metadata = {
+    sshKeys = join("",["celima:",file("/home/celima/.ssh/id_rsa.pub")])
   }  
 }  
 resource "google_compute_instance_group_manager" "teste-terraform" {
   name = "laboratorio"
   base_instance_name = "lab-terraform"
   zone = "us-central1-c"
-  target_size = 3
+  target_size = 10
   version {
     instance_template = "${google_compute_instance_template.default.self_link}"
   }
@@ -49,6 +53,6 @@ resource "google_compute_firewall" "webfirewall" {
 
   allow {
     protocol = "tcp"
-    ports = [22,80]
+    ports = [22,80,9090]
   }
 }
