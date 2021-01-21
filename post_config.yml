@@ -4,22 +4,56 @@
   become: true
   vars:
     package: 
-      - cockpit
+      - sos
+      - cockpit-ws 
+      - cockpit 
+      - cockpit-system 
+      - cockpit-storaged 
+      - cockpit-packagekit 
+      - cockpit-dashboard
+      - cockpit-pcp
       - podman
       - git
       - neofetch
       - tcpdump
+
   tasks:
     - name: Instalando pacotes adicionais
       dnf:
         name: "{{package}}"
         state: latest
 
-    - name: Habilitando serviços
-      ansible.builtin.service:
-        name: "{{package}}"
-        state: started
+    - name: Ajustando MOTD
+      template:
+        src: templates/motd.j2
+        dest: /etc/motd
+        mode: '0644'
+        owner: root
+        group: root
+
+    - name: Desabilitando Firewall
+      systemd:
+        name: firewalld
+        enabled: no
+        state: stopped
+   
+    - name: Ativando o Cockpit
+      systemd:
+        name: cockpit.socket
         enabled: yes
+        state: started
+     
+    - name: Restart PMCD
+      systemd:
+        state: restarted
+        enabled: yes
+        name: pmcd
+    
+    - name: Restart Metricas 
+      systemd:
+        state: restarted
+        enabled: yes
+        name: pmlogger
 
     - name: Restart servers
       reboot:
