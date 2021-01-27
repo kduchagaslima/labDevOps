@@ -4,7 +4,7 @@
   gather_facts: no
 
   tasks:
-    - name: Basic deploy of a service
-      community.general.terraform:
-        project_path: "."
-        state: present
+  - name: Basic deploy of a service
+    community.general.terraform:
+      project_path: "."
+      state: present
