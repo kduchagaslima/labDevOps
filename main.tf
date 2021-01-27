@@ -1,6 +1,6 @@
 provider "google" {
   credentials = "${file("/home/celima/.credentials/gcp-terraform-credential.json")}"
-  project     = "balmy-flash-273619"
+  project     = "littlecharlie-tech"
   region      = "us-central1"
   zone        = "us-central1-c"
 }
@@ -38,7 +38,7 @@ resource "google_compute_instance_template" "default"{
 }  
 resource "google_compute_instance_group_manager" "teste-terraform" {
   name = "laboratorio"
-  base_instance_name = "lab-terraform"
+  base_instance_name = "littlecharlie-lab"
   zone = "us-central1-c"
   target_size = 10
   version {
