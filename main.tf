@@ -40,7 +40,7 @@ resource "google_compute_instance_group_manager" "teste-terraform" {
   name = "laboratorio"
   base_instance_name = "littlecharlie-lab"
   zone = "us-central1-c"
-  target_size = 10
+  target_size = 1
   version {
     instance_template = "${google_compute_instance_template.default.self_link}"
   }
