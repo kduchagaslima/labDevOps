@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = "${file("/home/celima/.credentials/gcp-terraform-credential.json")}"
+  credentials = "${file("credentials/gcp-terraform-credential.json")}"
   project     = "littlecharlie-tech"
   region      = "us-central1"
   zone        = "us-central1-c"
@@ -33,7 +33,7 @@ resource "google_compute_instance_template" "default"{
   }
 
   metadata = {
-    sshKeys = join("",["celima:",file("/home/celima/.ssh/id_rsa.pub")])
+    sshKeys = join("",["celima:",file("credentials/id_rsa.pub")])
   }  
 }  
 resource "google_compute_instance_group_manager" "teste-terraform" {
