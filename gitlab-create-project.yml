@@ -22,7 +22,7 @@
 
   - name: "Adding a project hook"
     community.general.gitlab_hook:
-      api_url: https://gitlab.example.com/
+      api_url: http://gitlab.example.com/
       api_token: "{{ access_token }}"
       validate_certs: False
       project: "automacao/criado_via_Tower_AWX"
