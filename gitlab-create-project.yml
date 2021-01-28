@@ -1,0 +1,21 @@
+---
+- name: Criando um projeto no GITLAB
+  hosts: localhost
+  gather_facts: no
+  
+  tasks:
+  - name: Create GitLab Project in group Ansible
+    community.general.gitlab_project:
+      api_url: http://gitlab.example.com/
+      validate_certs: False
+      api_username: towerawx
+      api_token: "XRLZrssh3Zz2BsyYLhPv"
+      name: my_first_project
+      group: automacao
+      issues_enabled: False
+      merge_method: rebase_merge
+      wiki_enabled: True
+      snippets_enabled: True
+      import_url: http://git.example.com/example/lab.git
+      state: present
+    delegate_to: localhost

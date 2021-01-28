@@ -53,6 +53,6 @@ resource "google_compute_firewall" "webfirewall" {
 
   allow {
     protocol = "tcp"
-    ports = [22,80,9090]
+    ports = [22,80,443,9090]
   }
 }
