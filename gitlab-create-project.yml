@@ -8,7 +8,7 @@
     community.general.gitlab_project:
       api_url: http://gitlab.example.com/
       validate_certs: False
-      api_token: "fvZGPbnCHG3wYcg1cEdg"
+      api_token: "{{ access_token }}"
       name: criado_via_Tower_AWX
       group: automacao
       visibility: internal
