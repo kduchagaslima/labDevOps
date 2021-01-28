@@ -4,6 +4,17 @@
   gather_facts: no
   
   tasks:
+  - name: "Create GitLab SubGroup"
+    community.general.gitlab_group:
+      api_url: http://gitlab.example.com/
+      validate_certs: False
+      api_token: "{{ access_token }}"
+      name: apaches
+      path: apaches
+      state: present
+      parent: "automacao"
+
+
   - name: Create GitLab Project in group Automação Apaches
     community.general.gitlab_project:
       api_url: http://gitlab.example.com/
@@ -16,7 +27,6 @@
       merge_method: rebase_merge
       wiki_enabled: True
       snippets_enabled: True
-      #import_url: http://git.example.com/example/lab.git
       state: present
     delegate_to: localhost
 
