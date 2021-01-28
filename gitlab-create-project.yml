@@ -8,14 +8,14 @@
     community.general.gitlab_project:
       api_url: http://gitlab.example.com/
       validate_certs: False
-      #api_username: towerawx
-      api_token: "XRLZrssh3Zz2BsyYLhPv"
-      name: my_first_project
+      api_token: "fvZGPbnCHG3wYcg1cEdg"
+      name: criado_via_Ansible
       group: automacao
+      visibility: internal
       issues_enabled: False
       merge_method: rebase_merge
       wiki_enabled: True
       snippets_enabled: True
-      import_url: http://git.example.com/example/lab.git
+      #import_url: http://git.example.com/example/lab.git
       state: present
     delegate_to: localhost
