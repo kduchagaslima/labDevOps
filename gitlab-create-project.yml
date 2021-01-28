@@ -4,13 +4,13 @@
   gather_facts: no
   
   tasks:
-  - name: Create GitLab Project in group Ansible
+  - name: Create GitLab Project in group Automação Apaches
     community.general.gitlab_project:
       api_url: http://gitlab.example.com/
       validate_certs: False
       api_token: "{{ access_token }}"
-      name: criado_via_Tower_AWX
-      group: automacao
+      name: criado_via_Tower_AWX_2
+      group: automacao/apaches
       visibility: internal
       issues_enabled: False
       merge_method: rebase_merge
@@ -25,7 +25,7 @@
       api_url: http://gitlab.example.com/
       api_token: "{{ access_token }}"
       validate_certs: False
-      project: "automacao/criado_via_Tower_AWX"
+      project: "automacao/apaches/criado_via_Tower_AWX2"
       hook_url: "https://my-ci-server.example.com/gitlab-hook"
       state: present
       push_events: yes
