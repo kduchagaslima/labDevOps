@@ -8,7 +8,7 @@
     community.general.gitlab_project:
       api_url: http://gitlab.example.com/
       validate_certs: False
-      api_username: towerawx
+      #api_username: towerawx
       api_token: "XRLZrssh3Zz2BsyYLhPv"
       name: my_first_project
       group: automacao
