@@ -36,7 +36,7 @@
       api_url: http://gitlab.example.com/
       api_token: "{{ access_token }}"
       validate_certs: False
-      project: "automacao/apaches/criado_via_Tower_AWX2"
+      project: "automacao/apaches/criado_via_Tower_AWX_2"
       hook_url: "https://my-ci-server.example.com/gitlab-hook"
       state: present
       push_events: yes
