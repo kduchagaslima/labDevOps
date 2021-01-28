@@ -12,6 +12,7 @@
       name: apaches
       path: apaches
       state: present
+      visibility: internal
       parent: "automacao"
 
 
