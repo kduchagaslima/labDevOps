@@ -19,3 +19,17 @@
       #import_url: http://git.example.com/example/lab.git
       state: present
     delegate_to: localhost
+
+  - name: "Adding a project hook"
+    community.general.gitlab_hook:
+      api_url: https://gitlab.example.com/
+      api_token: "{{ access_token }}"
+      validate_certs: False
+      project: "automacao/criado_via_Tower_AWX"
+      hook_url: "https://my-ci-server.example.com/gitlab-hook"
+      state: present
+      push_events: yes
+      tag_push_events: yes
+      merge_requests_events: yes
+      hook_validate_certs: no
+      token: "my-super-secret-token-that-my-ci-server-will-check"    
