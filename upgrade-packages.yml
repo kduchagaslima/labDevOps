@@ -1,0 +1,9 @@
+---
+- name: Atualização de pacotes CENTOS/RHEL 8
+  hosts: all
+  tasks:
+
+  - name: Upgrade all packages
+    yum:
+      name: '*'
+      state: latest

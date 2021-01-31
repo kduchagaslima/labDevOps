@@ -1,0 +1,18 @@
+
+---
+- name: Ajustando regras no IPTABLES
+  hosts: webservergcp
+  become: true
+  tasks:
+    - name: Adjust firewall rules
+      firewalld:
+        port: 8080/tcp
+        permanent: true
+        immediate: yes
+        state: enabled
+
+    - name: Allow apache to modify files in /var/www/html
+      community.general.sefcontext:
+        target: '/var/www/html'
+        setype: httpd_git_rw_content_t
+        state: present
