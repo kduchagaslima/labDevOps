@@ -4,7 +4,7 @@
   tasks:
   - name: Pause play until a URL is reachable from this host
     uri:
-      url: "http://20.75.2.25"
+      url: "{{ url_dst }}"
       follow_redirects: none
       method: GET
     register: _result
