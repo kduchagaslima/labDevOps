@@ -9,5 +9,5 @@
       method: GET
     register: _result
     until: _result.status == 404
-    retries: 2720 # 720 * 5 seconds = 1hour (60*60/5)
+    retries: 720 # 720 * 5 seconds = 1hour (60*60/5)
     delay: 1 # Every 5 seconds
