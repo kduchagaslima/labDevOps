@@ -1,0 +1,28 @@
+---
+- name: Preparando servidor para instalação do Jenkins
+  hosts: localhost
+  become: true
+  tasks:
+  - name: Install a list of packages
+    apt:
+      pkg:
+      - default-jre
+      - default-jdk
+
+  - name: Import the GPG keys of the Jenkins
+    shell: "wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -"
+
+  - name: add the Jenkins repository to the system
+    shell: "sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'"
+
+  - name: Update repositories cache and install "jenkins" package
+    apt:
+      name: jenkins
+      update_cache: yes
+
+  - name: Capturando senha usuario Admin
+    shell: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+    register: senha_jenkins
+
+  - debug:
+      var: senha_jenkins.stdout_lines
